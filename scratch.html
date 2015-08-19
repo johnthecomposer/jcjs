@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!----- jQuery ---------> 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>  
+<style>
+.indent{margin-left: 10px;}
+</style>
+
+
+<script type="text/javascript">
+///////////////////////////////////////////////////////////////////////////////////
+
+//put functions into a functions collection
+//create jcjs master object
+//create objects within jcjs based on function categories
+//crate a function that loops through other functions and adds other functions which extend behavior
+
+///////////////////////////////////////////////////////////////////////////////////
+//Count properties, items in an object
+/*
+Object.prototype.count = function(){
+    var count = 0;
+    for(var prop in this){
+        if(this.hasOwnProperty(prop))
+            count = count + 1;
+			//if(prop == count){document.write('<br>Property: ' + prop)}
+    }
+    return count;
+}
+*/
+///////////////////////////////////////////////////////////////////////////////////
+/*
+Using the JavaScript language, have the function FirstReverse(str) take the str parameter being passed and return the string in reversed order.
+*/
+function reverseString(str)
+{
+	var strarr = str.split();
+    var strarrlen = strarr.length();
+  	var revstr = "";
+
+    for(var i = strarrlen-1; i >= 0; i--){
+        revstr += strarr[i];
+    }
+    return revstr;
+}
+
+//reverse a string
+var str = '!em esreveR';
+function FirstReverse(str){
+  arr = str.split('');
+  var rev = '';
+  for(var i = arr.length - 1; i >= 0; i--){
+    rev += arr[i];
+  }
+ // str = rev;
+  return rev;
+}
+///////////////////////////////////////////////////////////////////////////////////
+/*
+Using the JavaScript language, have the function FirstFactorial(num) take the num parameter being passed and return the factorial of it 
+(ie. if num = 4, return (4 * 3 * 2 * 1)). For the test cases, the range will be between 1 and 18. 
+*/
+function FirstFactorial(num){
+	for(var i = num; i > 1; i--){
+		num *= i - 1;
+	}
+  return num;          
+}
+//console.log(FirstFactorial(5));
+///////////////////////////////////////////////////////////////////////////////////
+var stripNonAlphanumeric = function(str){
+	var not_alf = /[^a-zA-Z0-9]+/;
+	var wrd_arr = str.split(' ');
+	alf_wrd_arr = [];
+	var alf_str = '';
+
+		for(wrd in wrd_arr){
+			var word = wrd_arr[wrd];
+			//console.log(word.length + ' ' + word);
+			
+			for(chr in word){
+				var c = word[chr];
+				
+				if(not_alf.test(c)){
+				console.log(c + ' is at ' + word.indexOf(c) + ' in ' + word);
+					word = word.replace(c, '');
+				}
+				//console.log(word.length + ' ' + word);
+			}
+		
+			alf_wrd_arr.push(word);
+		}
+	alf_str = alf_wrd_arr.join(' ');
+	return alf_str
+	}
+console.log(stripNonAlphanumeric("t,h.>;>,>/.*.e,"));
+///////////////////////////////////////////////////////////////////////////////////
+//strip non-alphanumeric characters from string and return sanitized string
+function alphaOnly(str){
+var is_not_alphanumeric = /[^a-zA-Z0-9]+/;
+
+var wrd_arr = str.split(' ');
+var chr_arr = [];
+var new_arr = [];
+//console.log(wrd_arr);
+	for(wrd in wrd_arr){
+	var word = wrd_arr[wrd];
+		chr_arr = word.split("");
+		//console.log(chr_arr);
+		if(is_not_alphanumeric.test(word)){
+		//console.log(word);
+		//console.log(chr_arr);
+			for(chr in chr_arr){
+				character = chr_arr[chr];
+				//console.log(character);
+				if(is_not_alphanumeric.test(character)){
+					chr_arr.splice(chr_arr.indexOf(character),1);
+					
+				}
+			}
+		}
+	new_arr.push(chr_arr.join(''));
+	}
+str = new_arr.join(' ');
+return str;
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+/*
+ Using the JavaScript language, have the function LongestWord(sen) take the sen parameter being passed and return the largest word in the 
+ string. If there are two or more words that are the same length, return the first word from the string with that length. Ignore punctuation 
+ and assume sen will not be empty. 
+*/
+function LongestWord(sen) { 
+	sen = alphaOnly(sen);
+
+	sen_arr = sen.split(' ');
+	max_arr = [];
+	for(var i = 0; i < sen_arr.length; i++){
+	var wrd = sen_arr[i];
+		if(!max_arr[sen_arr[i].length]){
+			max_arr[sen_arr[i].length] = wrd;
+		}
+	}
+return max_arr[max_arr.length - 1];
+}
+//console.log(LongestWord('hippopotamus awetoianweotihawoe<.<>j,k,i>thaowiethaowieth hillopotamus de duke le dukingson '));
+
+///////////////////////////////////////////////////////////////////////////////////
+//create object called javascript set, a set of strings
+//create two methods:
+//get all - gives back array of distinct values (a set)
+//add method -- adds string to it
+ 
+//javascript will only allow distinct properties, so creating
+//an object and adding properties 
+ 
+//a javascript object's properties are indexed, so searching
+//an object is fast
+
+var theSet = {
+//underscores indicate private variables
+	_internalSet: {
+	},
+	addUnique: function(item){
+		this._internalSet[item] = true;	
+	},
+	getAll: function(){
+		var unique = [];
+		for(prp in this._internalSet){
+			unique.push(prp);
+		}
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+var getPrimes = function(count){
+	var i = 1;
+	var c = [];
+		while(c.length < count){
+			if(i % 2 !== 0 && i % 3 !== 0){
+				c.push(i);
+			}
+		i++;
+		}
+	//console.log(c);
+	return c.join(', ');
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+/* Using the JavaScript language, have the function LetterChanges(str) take the str parameter being passed and modify it using 
+the following algorithm. Replace every letter in the string with the letter following it in the alphabet (ie. c becomes d, z becomes a). 
+Then capitalize every vowel in this new string (a, e, i, o, u) and finally return this modified string. 
+*/
+function LetterChanges(str, cnt){
+	var alf = ["a", "b", "c" ,"d", "e", "f", "g", "h", "i", "j" ,"k" ,"l", 
+               "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", 
+               "y", "z"];
+  	var vow = ["a", "e", "i", "o", "u"];
+	if(!cnt){cnt = 1}
+  	var shf = [];
+	var newval = ''
+
+  for(var i = 0; i < str.length; i++){
+	pos = alf.indexOf(str[i]);
+	
+	if(alf.indexOf(str[i]) === -1){
+		newval = str[i];
+	}
+	else{
+		if(cnt > 0){
+			if(pos + cnt > (alf.length - 1)){
+				newpos = (alf.length - 1) - pos;
+			}
+			else{
+				newpos = pos + cnt;
+			}
+		}
+
+		else if(cnt < 0){
+			if(pos + cnt < 0){
+				newpos = alf.length + (pos + cnt);
+			}
+			else{
+				newpos = pos + cnt;
+			}
+		}
+	
+		newval = alf[newpos];
+		
+		if(vow.indexOf(newval) !== -1){
+			newval = newval.toUpperCase();
+		}
+	}
+    shf.push(newval);
+  }
+  str = shf.join('');
+  return str;    
+}
+///////////////////////////////////////////////////////////////////////////////////
+$(document).ready(function(){
+	var display_results = document.getElementById('result');
+	display_results.innerHTML += '<div class="indent">' + getPrimes(10) + '</div>';
+	display_results.innerHTML += '<div class="indent">' + getPrimes(4) + '</div>';
+	//display_results.innerHTML += '<div class="indent">' + alphaOnly('d,uke+y ,le ,duke fart___E_RYhy,44404391-@@#$opolis') + '</div>';
+	display_results.innerHTML += '<div class="indent">' + LetterChanges("jk$ l", -3);  + '</div>';
+});
+///////////////////////////////////////////////////////////////////////////////////
+</script>
+<body>
+<div id="result">result: </div>
+</body>
+</html>
