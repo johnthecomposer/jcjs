@@ -1,11 +1,10 @@
 /* ---------------------------- JC_Functions: Get Object Information ---------------------------- */
-//http://stackoverflow.com/questions/8419354/get-html5-localstorage-keys
+//Source: http://stackoverflow.com/questions/8419354/get-html5-localstorage-keys
 var listLocalStorageKeys = function (){
 	for ( var i = 0, len = localStorage.length; i < len; ++i ) {
 	console.log( localStorage.getItem( localStorage.key( i ) ) );
 	}
 }
-
 
 function getDyads(){
 
